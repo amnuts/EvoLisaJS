@@ -20,6 +20,7 @@ export const settings = {
     "activePointsMin": 0,
     "activePointsPerPolygonMax": 10,
     "activePointsPerPolygonMin": 3,
+    "activePointTypeMutationRate": 1500,
     "activePolygonsMax": 255,
     "activePolygonsMin": 3,
     "activeRedMutationRate": 1500,
@@ -56,5 +57,5 @@ export const settings = {
     "removePointMutationRate": 1500,
     "removePolygonMutationRate": 1500,
     "backgroundFillColour": "#fff",
-    "tickSpeed": 1 // in ms
+    "tickSpeed": 1, // in ms
 };

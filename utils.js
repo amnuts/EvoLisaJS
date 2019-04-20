@@ -7,7 +7,18 @@ CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray, fillColor
     this.beginPath();
     this.moveTo(pointsArray[0][0], pointsArray[0][1]);
     for (let i = 0; i < pointsArray.length; i++) {
-        this.lineTo(pointsArray[i][0], pointsArray[i][1]);
+        switch (pointsArray[i].length) {
+            default:
+            case 2:
+                this.lineTo(...pointsArray[i]);
+                break;
+            case 4:
+                this.quadraticCurveTo(...pointsArray[i]);
+                break;
+            case 6:
+                this.bezierCurveTo(...pointsArray[i]);
+                break;
+        }
     }
     if (strokeColor !== null && strokeColor !== undefined)
         this.strokeStyle = strokeColor;

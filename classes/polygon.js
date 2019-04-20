@@ -47,7 +47,7 @@ export class Polygon
     getPoints() {
         let points = [];
         for (let i = 0; i < this.points.length; i++) {
-            points.push([this.points[i].x, this.points[i].y]);
+            points.push(this.points[i].getCoordinates());
         }
         return points;
     }
