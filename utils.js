@@ -20,22 +20,8 @@ function getColourMatrix(ctx) {
     return colourMatrix;
 }
 
-function cloneObject(obj) {
-    let clone = {};
-    for (let i in obj) {
-        if (obj[i] != null && typeof (obj[i]) == "object") {
-            clone[i] = cloneObject(obj[i]);
-        } else {
-            clone[i] = obj[i];
-        }
-    }
-    return clone;
-}
-
 function willMutate(mutationRate) {
-    let i = rnd(0, mutationRate);
-    //return ((i/mutationRate)* 100) > 80;
-    return i == 1;
+    return (rnd(0, mutationRate) == 1);
 }
 
 function fitnessLevel(ctx, origColours) {
@@ -58,7 +44,6 @@ function draw(ctx, drawing) {
     }
 }
 
-
 export {
-    rnd, draw, getColourMatrix, cloneObject, willMutate, fitnessLevel
+    rnd, draw, getColourMatrix, willMutate, fitnessLevel
 }
