@@ -13,6 +13,11 @@ let fitnessCanvas = document.getElementById('fitness');
 let fitnessContext = fitnessCanvas.getContext('2d');
 
 let info = document.getElementById('data');
+let infoData = {
+    generation: 0,
+    fitness: Number.MAX_VALUE,
+    evolved: 0
+};
 
 let imgOrig = new Image();
 imgOrig.onload = function() {
@@ -20,12 +25,11 @@ imgOrig.onload = function() {
     imgCanvas.height = gaCanvas.height = fitnessCanvas.height = this.naturalHeight/2;
     imgContext.drawImage(imgOrig, 0, 0, imgCanvas.width, imgCanvas.height);
 
-    let generation = 0;
-    let errorLevel = Number.MAX_VALUE;
     let origColours = getColourMatrix(imgContext);
     let drawing = new Drawing(imgCanvas.width, imgCanvas.height);
 
-    info.innerHTML = `<p>Generate <b>${generation++}</b></p>`;
+    info.innerHTML = `<pre>${JSON.stringify(infoData, null, 2)}</pre>`;
+    infoData.generation++;
     draw(gaContext, drawing);
 
     let looper = setInterval(function(){
@@ -33,16 +37,18 @@ imgOrig.onload = function() {
         drawingClone.mutate();
         draw(fitnessContext, drawingClone);
         let newFitnessLevel = fitnessLevel(fitnessContext, origColours);
-        if (newFitnessLevel < errorLevel) {
-            errorLevel = newFitnessLevel;
+        if (newFitnessLevel < infoData.fitness) {
+            infoData.fitness = newFitnessLevel;
             drawing = drawingClone;
+            infoData.evolved++;
             drawing.isDirty(true);
         }
         if (drawing.dirty) {
             draw(gaContext, drawing);
             drawing.isDirty(false);
         }
-        info.innerHTML = `<p>Generate <b>${generation++}</b></p>`;
+        info.innerHTML = `<pre>${JSON.stringify(infoData, null, 2)}</pre>`;
+        infoData.generation++;
 
     }, settings.tickSpeed)
 };
