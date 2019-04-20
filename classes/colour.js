@@ -1,5 +1,5 @@
-import { rnd, willMutate } from './utils.js';
-import {settings} from "./settings.js";
+import { rnd, willMutate } from '../utils.js';
+import {settings} from "../settings.js";
 
 export class Colour
 {
@@ -41,4 +41,4 @@ export class Colour
             drawing.isDirty(true);
         }
     }
-};
+}

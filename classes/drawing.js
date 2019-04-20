@@ -1,5 +1,5 @@
-import {rnd, willMutate} from "./utils.js";
-import {settings} from "./settings.js";
+import {rnd, willMutate} from "../utils.js";
+import {settings} from "../settings.js";
 import {Polygon} from "./polygon.js";
 
 export class Drawing
@@ -65,5 +65,3 @@ export class Drawing
         }
     }
 }
-
-

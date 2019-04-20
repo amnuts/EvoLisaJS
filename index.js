@@ -1,8 +1,8 @@
 import { settings } from './settings.js';
-import { Drawing } from './drawing.js';
+import { Drawing } from './classes/drawing.js';
 import { draw, fitnessLevel, getColourMatrix } from './utils.js';
 
-let looper, drawing, origColours, infoData;
+let loop, drawing, origColours, infoData;
 let imgCanvas = document.getElementById('original');
 let imgContext = imgCanvas.getContext('2d');
 let gaCanvas = document.getElementById('generated');
@@ -13,7 +13,7 @@ let info = document.getElementById('data');
 let resume = document.getElementById('resume');
 
 document.getElementById('start').addEventListener('click', function() {
-    if (looper) {
+    if (loop) {
         stopLoop('stopped');
         resume.disabled = false;
     } else {
@@ -30,8 +30,8 @@ document.getElementById('start').addEventListener('click', function() {
 
 resume.addEventListener('click', function() {
     infoData.state = 'started';
-    looper = setInterval(evolve, settings.tickSpeed);
-    this.disabled = true;
+    loop = setInterval(evolve, settings.tickSpeed);
+    resume.disabled = true;
 });
 
 function load() {
@@ -48,7 +48,7 @@ function load() {
         infoData.generation++;
         draw(gaContext, drawing);
 
-        looper = setInterval(evolve, settings.tickSpeed);
+        loop = setInterval(evolve, settings.tickSpeed);
     };
     imgOrig.src = imgCanvas.getAttribute('data-img');
 }
@@ -77,8 +77,8 @@ function refreshData() {
 }
 
 function stopLoop(reason) {
-    clearInterval(looper);
-    looper = null;
+    clearInterval(loop);
+    loop = null;
     infoData.state = reason;
     refreshData();
 }

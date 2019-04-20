@@ -1,5 +1,5 @@
-import { rnd, willMutate } from './utils.js';
-import {settings} from "./settings.js";
+import { rnd, willMutate } from '../utils.js';
+import {settings} from "../settings.js";
 
 export class Point
 {
@@ -35,4 +35,4 @@ export class Point
             drawing.isDirty(true);
         }
     }
-};
+}

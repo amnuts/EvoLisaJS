@@ -1,5 +1,5 @@
-import { rnd, willMutate } from './utils.js';
-import {settings} from "./settings.js";
+import { rnd, willMutate } from '../utils.js';
+import {settings} from "../settings.js";
 import {Point} from "./point.js";
 import {Colour} from "./colour.js";
 
@@ -73,4 +73,4 @@ export class Polygon
             }
         }
     }
-};
+}
