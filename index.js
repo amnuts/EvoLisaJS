@@ -21,7 +21,9 @@ document.getElementById('start').addEventListener('click', function() {
             generation: 0,
             fitness: Number.MAX_VALUE,
             evolved: 0,
-            state: 'started'
+            state: 'started',
+            polygons: 0,
+            points: 0
         };
         resume.disabled = true;
         load();
@@ -43,6 +45,8 @@ function load() {
 
         origColours = getColourMatrix(imgContext);
         drawing = new Drawing(imgCanvas.width, imgCanvas.height);
+        infoData.polygons = drawing.polygons.length;
+        infoData.points = drawing.pointCount();
 
         refreshData();
         infoData.generation++;
@@ -66,6 +70,8 @@ function evolve() {
     }
     if (drawing.dirty) {
         draw(gaContext, drawing);
+        infoData.polygons = drawing.polygons.length;
+        infoData.points = drawing.pointCount();
         drawing.isDirty(false);
     }
     refreshData();
