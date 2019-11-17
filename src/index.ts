@@ -1,16 +1,19 @@
-import { settings } from './settings.js';
-import { Drawing } from './classes/drawing.js';
-import { draw, fitnessLevel, getColourMatrix } from './utils.js';
+import { settings } from "./settings.js";
+import { Drawing } from "./classes/drawing.js";
+import { draw, fitnessLevel, getColourMatrix } from "./utils.js";
 
-let loop, drawing, origColours, infoData;
-let imgCanvas = document.getElementById('original');
-let imgContext = imgCanvas.getContext('2d');
-let gaCanvas = document.getElementById('generated');
-let gaContext = gaCanvas.getContext('2d');
-let fitnessCanvas = document.getElementById('fitness');
-let fitnessContext = fitnessCanvas.getContext('2d');
-let info = document.getElementById('data');
-let resume = document.getElementById('resume');
+let drawing:Drawing;
+let loop:number;
+let origColours, infoData;
+
+let imgCanvas = <HTMLCanvasElement>document.getElementById('original');
+let imgContext = <CanvasRenderingContext2D>imgCanvas.getContext('2d');
+let gaCanvas = <HTMLCanvasElement>document.getElementById('generated');
+let gaContext = <CanvasRenderingContext2D>gaCanvas.getContext('2d');
+let fitnessCanvas = <HTMLCanvasElement>document.getElementById('fitness');
+let fitnessContext = <CanvasRenderingContext2D>fitnessCanvas.getContext('2d');
+let info = <HTMLElement>document.getElementById('data');
+let resume = <HTMLButtonElement>document.getElementById('resume');
 
 document.getElementById('start').addEventListener('click', function() {
     if (loop) {
@@ -39,8 +42,8 @@ resume.addEventListener('click', function() {
 function load() {
     let imgOrig = new Image();
     imgOrig.onload = function () {
-        imgCanvas.width = gaCanvas.width = fitnessCanvas.width = this.naturalWidth / 2;
-        imgCanvas.height = gaCanvas.height = fitnessCanvas.height = this.naturalHeight / 2;
+        imgCanvas.width = gaCanvas.width = fitnessCanvas.width = imgOrig.naturalWidth / 2;
+        imgCanvas.height = gaCanvas.height = fitnessCanvas.height = imgOrig.naturalHeight / 2;
         imgContext.drawImage(imgOrig, 0, 0, imgCanvas.width, imgCanvas.height);
 
         origColours = getColourMatrix(imgContext);

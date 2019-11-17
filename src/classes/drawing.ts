@@ -4,7 +4,11 @@ import {Polygon} from "./polygon.js";
 
 export class Drawing
 {
-    constructor(maxWidth, maxHeight) {
+    public polygons:Polygon[];
+    public dirty:boolean;
+
+    public constructor(public maxWidth:number, public maxHeight:number)
+    {
         this.polygons = [];
         this.maxWidth = maxWidth;
         this.maxHeight = maxHeight;
@@ -16,11 +20,13 @@ export class Drawing
         }
     }
 
-    isDirty(which) {
+    public isDirty(which:boolean): void
+    {
         this.dirty = which;
     }
 
-    clone() {
+    public clone(): Drawing
+    {
         let d = new Drawing(this.maxWidth, this.maxHeight);
         d.polygons = [];
         for (let i = 0; i < this.polygons.length; i++) {
@@ -29,7 +35,8 @@ export class Drawing
         return d;
     }
 
-    pointCount()  {
+    public pointCount(): number
+    {
         let total = 0;
         for (let i = 0; i < this.polygons.length; i++) {
             total += this.polygons[i].points.length;
@@ -37,7 +44,8 @@ export class Drawing
         return total;
     }
 
-    mutate() {
+    public mutate(): void
+    {
         if (willMutate(settings.activeAddPolygonMutationRate)) {
             if (this.polygons.length < settings.activePolygonsMax) {
                 this.polygons.splice(rnd(0, this.polygons.length - 1), 0, new Polygon(this.maxWidth, this.maxHeight));

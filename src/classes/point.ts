@@ -1,18 +1,30 @@
-import { rnd, willMutate } from '../utils.js';
+import { rnd, willMutate } from "../utils.js";
 import {settings} from "../settings.js";
+import {MutatableType} from "./MutatableType.js";
 
-export class Point
+export class Point extends MutatableType<Point>
 {
-    constructor(maxWidth, maxHeight) {
-        this.maxWidth = maxWidth;
-        this.maxHeight = maxHeight;
+    public pointLen:number;
+    public x:number;
+    public y:number;
+    private cpx1:number;
+    private cpx2:number;
+    private cpy1:number;
+    private cpy2:number;
+
+    public constructor(public maxWidth:number, public maxHeight:number)
+    {
+        super();
+        //this.maxWidth = maxWidth;
+        //this.maxHeight = maxHeight;
         this.pointLen = 2;
         this.x = rnd(0, this.maxWidth);
         this.y = rnd(0, this.maxHeight);
         this.cpx1 = this.cpx2 = this.cpy1 = this.cpy2 = 0;
     }
 
-    clone() {
+    public clone(): Point
+    {
         let p = new Point(this.maxWidth, this.maxHeight);
         p.x = this.x;
         p.y = this.y;
@@ -24,7 +36,8 @@ export class Point
         return p;
     }
 
-    getCoordinates() {
+    public getCoordinates(): number[]
+    {
         if (this.pointLen == 6) {
             return [this.cpx1, this.cpy1, this.cpx2, this.cpy2, this.x, this.y];
         }
@@ -34,7 +47,8 @@ export class Point
         return [this.x, this.y];
     }
 
-    mutate(drawing) {
+    public mutate(drawing): void
+    {
         if (willMutate(settings.activePointTypeMutationRate)) {
             let newLen = [2, 4, 6][rnd(0, 2)];
             if (newLen != this.pointLen) {

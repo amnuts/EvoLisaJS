@@ -1,6 +1,6 @@
 import {settings} from "./settings.js";
 
-CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray, fillColor, strokeColor) {
+CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray:number[][], fillColor:string, strokeColor?:string) {
     if (pointsArray.length <= 0) {
         return;
     }
@@ -23,7 +23,7 @@ CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray, fillColor
     if (strokeColor !== null && strokeColor !== undefined)
         this.strokeStyle = strokeColor;
 
-    if (fillColor != null && fillColor != undefined) {
+    if (fillColor !== null && fillColor !== undefined) {
         this.fillStyle = fillColor;
         this.fill();
     }

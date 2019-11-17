@@ -4,6 +4,7 @@
     "removeComments": true,
     "sourceMap": false,
     "target": "es6",
+    "module": "es6",
     "outDir": "./dist"
   },
   "include": [
