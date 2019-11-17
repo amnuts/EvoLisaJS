@@ -1,11 +1,18 @@
-import { rnd, willMutate } from '../utils.js';
+import {rnd, willMutate} from "../utils.js";
 import {settings} from "../settings.js";
 import {Point} from "./point.js";
 import {Colour} from "./colour.js";
+import {MutatableType} from "./MutatableType.js";
+import {Drawing} from "./drawing.js";
 
-export class Polygon
+export class Polygon extends MutatableType<Polygon>
 {
-    constructor(maxWidth, maxHeight) {
+    public colour:Colour;
+    public points:Point[];
+
+    constructor(protected maxWidth:number, protected maxHeight:number)
+    {
+        super();
         this.maxWidth = maxWidth;
         this.maxHeight = maxHeight;
         this.colour = new Colour();
@@ -19,7 +26,8 @@ export class Polygon
         }
     }
 
-    clone() {
+    public clone(): Polygon
+    {
         let p = new Polygon(this.maxWidth, this.maxHeight);
         p.points = [];
         for (let i = 0; i < this.points.length; i++) {
@@ -29,7 +37,8 @@ export class Polygon
         return p;
     }
 
-    mutate(drawing) {
+    public mutate(drawing): void
+    {
         if (willMutate(settings.activeAddPointMutationRate)) {
             this.addPoint(drawing);
         }
@@ -44,7 +53,8 @@ export class Polygon
         this.colour.mutate(drawing);
     }
 
-    getPoints() {
+    public getPoints(): number[][]
+    {
         let points = [];
         for (let i = 0; i < this.points.length; i++) {
             points.push(this.points[i].getCoordinates());
@@ -52,8 +62,9 @@ export class Polygon
         return points;
     }
 
-    addPoint(drawing) {
-        if (this.points < settings.activePointsPerPolygonMax) {
+    public addPoint(drawing:Drawing): void
+    {
+        if (this.points.length < settings.activePointsPerPolygonMax) {
             if (drawing.pointCount() < settings.activePointsMax) {
                 let p = new Point(this.maxWidth, this.maxHeight);
                 let index = rnd(1, this.points.length - 1);
@@ -65,7 +76,8 @@ export class Polygon
         }
     }
 
-    removePoint(drawing) {
+    public removePoint(drawing:Drawing): void
+    {
         if (this.points.length > settings.activePointsPerPolygonMin) {
             if (drawing.pointCount() > settings.activePointsMin) {
                 this.points.slice(rnd(0, this.points.length - 1), 1);

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es6", "dom.iterable", "scripthost"],
+    "removeComments": true,
+    "sourceMap": false,
+    "target": "es6",
+    "module": "es6",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "compileOnSave": true
+}
