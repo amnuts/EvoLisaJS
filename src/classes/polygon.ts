@@ -1,4 +1,4 @@
-import {rnd, willMutate} from "../utils.js";
+import {clamp, rnd, willMutate} from "../utils.js";
 import {settings} from "../settings.js";
 import {Point} from "./point.js";
 import {Colour} from "./colour.js";
@@ -18,12 +18,25 @@ export class Polygon extends MutatableType<Polygon>
         this.colour = new Colour();
         this.points = [];
 
+        let limitPointDistance = willMutate(settings.activePolygonPointDistanceMutationRate);
+
         for (let i = 0; i < settings.activePointsPerPolygonMin; i++) {
             let p = new Point(this.maxWidth, this.maxHeight);
-            p.x = Math.min(Math.max(0, rnd(0, this.maxWidth) + rnd(-3, 3)), this.maxWidth);
-            p.y = Math.min(Math.max(0, rnd(0, this.maxHeight) + rnd(-3, 3)), this.maxHeight);
+            if (!limitPointDistance || i === 0) {
+                p.x = clamp(0, rnd(0, this.maxWidth) + rnd(-3, 3), this.maxWidth);
+                p.y = clamp(0, rnd(0, this.maxHeight) + rnd(-3, 3), this.maxHeight);
+            } else {
+                let lastX = this.points[i - 1].x;
+                let lastY = this.points[i - 1].y;
+                let xRandOffset = rnd(settings.activePolygonPointDistanceMin, settings.activePolygonPointDistanceMax);
+                let yRandOffset = rnd(settings.activePolygonPointDistanceMin, settings.activePolygonPointDistanceMax);
+                p.x = clamp(0, lastX + rnd(-xRandOffset, xRandOffset), this.maxWidth);
+                p.y = clamp(0, lastY + rnd(-yRandOffset, yRandOffset), this.maxHeight);
+            }
             this.points.push(p);
         }
+
+        console.log(limitPointDistance, this.getPoints());
     }
 
     public clone(): Polygon
