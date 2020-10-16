@@ -24,7 +24,7 @@ If you haven't already, install TypeScript using _npm_ with the command:
 npm install -g typescript
 ```
 
-This will globally install the require typescript tools.  You can then run the command:
+This will globally install the required typescript tools.  You can then run the command:
 
 ```
 tsc
