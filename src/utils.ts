@@ -36,6 +36,10 @@ function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function clamp(min, value, max) {
+    return Math.min(Math.max(min, value), max);
+}
+
 function getColourMatrix(ctx) {
     let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
     let colourMatrix = [];
@@ -75,5 +79,5 @@ function draw(ctx, drawing) {
 }
 
 export {
-    rnd, draw, getColourMatrix, willMutate, fitnessLevel
+    clamp, rnd, draw, getColourMatrix, willMutate, fitnessLevel
 }
