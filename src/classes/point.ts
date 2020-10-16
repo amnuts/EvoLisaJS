@@ -1,4 +1,4 @@
-import { rnd, willMutate } from "../utils.js";
+import { clamp, rnd, willMutate } from "../utils.js";
 import {settings} from "../settings.js";
 import {MutatableType} from "./MutatableType.js";
 
@@ -68,27 +68,27 @@ export class Point extends MutatableType<Point>
             drawing.isDirty(true);
         }
         if (willMutate(settings.activeMovePointMidMutationRate)) {
-            this.x = Math.min(Math.max(0, this.x + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxWidth);
-            this.y = Math.min(Math.max(0, this.y + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxHeight);
+            this.x = clamp(0, this.x + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxWidth);
+            this.y = clamp(0, this.y + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxHeight);
             if (this.pointLen > 2) {
-                this.cpx1 = Math.min(Math.max(0, this.cpx1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxWidth);
-                this.cpy1 = Math.min(Math.max(0, this.cpy1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxHeight);
+                this.cpx1 = clamp(0, this.cpx1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxWidth);
+                this.cpy1 = clamp(0, this.cpy1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxHeight);
                 if (this.pointLen > 4) {
-                    this.cpx2 = Math.min(Math.max(0, this.cpx2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxWidth);
-                    this.cpy2 = Math.min(Math.max(0, this.cpy2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxHeight);
+                    this.cpx2 = clamp(0, this.cpx2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxWidth);
+                    this.cpy2 = clamp(0, this.cpy2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid), this.maxHeight);
                 }
             }
             drawing.isDirty(true);
         }
         if (willMutate(settings.activeMovePointMinMutationRate)) {
-            this.x = Math.min(Math.max(0, this.x + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin)), this.maxWidth);
-            this.y = Math.min(Math.max(0, this.y + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin)), this.maxHeight);
+            this.x = clamp(0, this.x + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxWidth);
+            this.y = clamp(0, this.y + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxHeight);
             if (this.pointLen > 2) {
-                this.cpx1 = Math.min(Math.max(0, this.cpx1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxWidth);
-                this.cpy1 = Math.min(Math.max(0, this.cpy1 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxHeight);
+                this.cpx1 = clamp(0, this.cpx1 + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxWidth);
+                this.cpy1 = clamp(0, this.cpy1 + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxHeight);
                 if (this.pointLen > 4) {
-                    this.cpx2 = Math.min(Math.max(0, this.cpx2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxWidth);
-                    this.cpy2 = Math.min(Math.max(0, this.cpy2 + rnd(-settings.activeMovePointRangeMid, settings.activeMovePointRangeMid)), this.maxHeight);
+                    this.cpx2 = clamp(0, this.cpx2 + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxWidth);
+                    this.cpy2 = clamp(0, this.cpy2 + rnd(-settings.activeMovePointRangeMin, settings.activeMovePointRangeMin), this.maxHeight);
                 }
             }
             drawing.isDirty(true);
