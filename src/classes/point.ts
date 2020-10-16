@@ -15,8 +15,6 @@ export class Point extends MutatableType<Point>
     public constructor(public maxWidth:number, public maxHeight:number)
     {
         super();
-        //this.maxWidth = maxWidth;
-        //this.maxHeight = maxHeight;
         this.pointLen = 2;
         this.x = rnd(0, this.maxWidth);
         this.y = rnd(0, this.maxHeight);
