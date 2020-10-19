@@ -35,8 +35,6 @@ export class Polygon extends MutatableType<Polygon>
             }
             this.points.push(p);
         }
-
-        console.log(limitPointDistance, this.getPoints());
     }
 
     public clone(): Polygon
@@ -81,8 +79,8 @@ export class Polygon extends MutatableType<Polygon>
             if (drawing.pointCount() < settings.activePointsMax) {
                 let p = new Point(this.maxWidth, this.maxHeight);
                 let index = rnd(1, this.points.length - 1);
-                p.x = (this.points[index - 1][0] + this.points[index][0])/2;
-                p.y = (this.points[index - 1][1] + this.points[index][1])/2;
+                p.x = (this.points[index - 1].x + this.points[index].x)/2;
+                p.y = (this.points[index - 1].y + this.points[index].y)/2;
                 this.points.splice(index, 0, p);
                 drawing.isDirty(true);
             }
