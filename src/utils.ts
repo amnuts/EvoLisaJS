@@ -1,9 +1,15 @@
 import {settings} from "./settings.js";
 
-CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray:number[][], fillColor:string, strokeColor?:string) {
+CanvasRenderingContext2D.prototype.fillPolygon = function(
+    pointsArray:number[][],
+    fillColor:string,
+    blurFilter:string,
+    strokeColor?:string
+) {
     if (pointsArray.length <= 0) {
         return;
     }
+
     this.beginPath();
     this.moveTo(pointsArray[0][0], pointsArray[0][1]);
     for (let i = 0; i < pointsArray.length; i++) {
@@ -20,13 +26,18 @@ CanvasRenderingContext2D.prototype.fillPolygon = function(pointsArray:number[][]
                 break;
         }
     }
-    if (strokeColor !== null && strokeColor !== undefined)
+
+    if (strokeColor !== null && strokeColor !== undefined) {
         this.strokeStyle = strokeColor;
+    }
 
     if (fillColor !== null && fillColor !== undefined) {
         this.fillStyle = fillColor;
         this.fill();
     }
+
+    this.filter = blurFilter;
+
     this.closePath();
 };
 
@@ -74,7 +85,11 @@ function draw(ctx, drawing) {
     ctx.fillStyle = settings.backgroundFillColour;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     for (let i = 0; i < drawing.polygons.length; i++) {
-        ctx.fillPolygon(drawing.polygons[i].getPoints(), drawing.polygons[i].colour.getRgbaString());
+        ctx.fillPolygon(
+            drawing.polygons[i].getPoints(),
+            drawing.polygons[i].colour.getRgbaString(),
+            drawing.polygons[i].blur.getFilterString()
+        );
     }
 }
 

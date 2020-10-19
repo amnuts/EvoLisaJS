@@ -2,11 +2,13 @@ import {clamp, rnd, willMutate} from "../utils.js";
 import {settings} from "../settings.js";
 import {Point} from "./point.js";
 import {Colour} from "./colour.js";
+import {Blur} from "./blur.js";
 import {MutatableType} from "./MutatableType.js";
 import {Drawing} from "./drawing.js";
 
 export class Polygon extends MutatableType<Polygon>
 {
+    public blur:Blur;
     public colour:Colour;
     public points:Point[];
 
@@ -16,6 +18,7 @@ export class Polygon extends MutatableType<Polygon>
         this.maxWidth = maxWidth;
         this.maxHeight = maxHeight;
         this.colour = new Colour();
+        this.blur = new Blur();
         this.points = [];
 
         let limitPointDistance = willMutate(settings.activePolygonPointDistanceMutationRate);
@@ -62,6 +65,7 @@ export class Polygon extends MutatableType<Polygon>
         }
 
         this.colour.mutate(drawing);
+        this.blur.mutate(drawing);
     }
 
     public getPoints(): number[][]
