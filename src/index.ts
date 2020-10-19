@@ -14,6 +14,7 @@ let fitnessCanvas = <HTMLCanvasElement>document.getElementById('fitness');
 let fitnessContext = <CanvasRenderingContext2D>fitnessCanvas.getContext('2d');
 let info = <HTMLElement>document.getElementById('data');
 let resume = <HTMLButtonElement>document.getElementById('resume');
+let viewfit = <HTMLInputElement>document.getElementById('viewfit');
 
 document.getElementById('start').addEventListener('click', function() {
     if (loop) {
@@ -37,6 +38,10 @@ resume.addEventListener('click', function() {
     infoData.state = 'started';
     loop = setInterval(evolve, settings.tickSpeed);
     resume.disabled = true;
+});
+
+viewfit.addEventListener('click', function() {
+    fitnessCanvas.style.display = (this.checked ? 'block' : 'none');
 });
 
 function load() {

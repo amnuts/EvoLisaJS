@@ -5,6 +5,8 @@
     <title>EvoLisaJS</title>
     <style>
         nav { display: block; margin-bottom: 10px; }
+        #images { display: flex; align-items: center; }
+        #images > * { margin: 10px; }
     </style>
 </head>
 <body>
@@ -12,6 +14,7 @@
 <nav>
     <button id="start">start/stop</button>
     <button id="resume" disabled>resume</button>
+    <label><input type="checkbox" id="viewfit" /> view mutations</label>
 </nav>
 
 <div id="images">
