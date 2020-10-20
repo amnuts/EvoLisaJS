@@ -48,6 +48,7 @@ export class Polygon extends MutatableType<Polygon>
             p.points.push(this.points[i].clone());
         }
         p.colour = this.colour.clone();
+        p.blur = this.blur.clone();
         return p;
     }
 
